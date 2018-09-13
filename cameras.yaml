@@ -1,12 +1,12 @@
 #cameras.yaml
 - platform: ffmpeg
-  input: -an -i "rtsp://10.3.1.9:554/rtsp_live0"
+  input: !secret camera_kitchen_stream_url
   name: Kitchen
   authentication: true
 
 - platform: mjpeg
-  mjpeg_url: http://10.3.1.17:6080/video
+  mjpeg_url: !secret camera_dashboard_stream_url
 
 - platform: mjpeg
-  mjpeg_url: http://10.3.1.2:8081
+  mjpeg_url: !secret camera_usb_stream_url
   name: USB
