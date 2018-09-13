@@ -1,0 +1,7 @@
+alias: "On"
+sequence:
+- service: remote.send_command
+  entity_id: remote.harmony_hub
+  data:
+    device: "42458302"
+    command: "Light3"

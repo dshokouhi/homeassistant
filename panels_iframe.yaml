@@ -1,0 +1,25 @@
+#panels_iframe.yaml
+htpc:
+  title: 'HTPC-01 Kodi'
+  icon: mdi:kodi
+  url: 'http://10.3.1.2:8180'
+
+radarr:
+  title: 'Radarr Movies Download'
+  icon: mdi:movie
+  url: 'http://10.3.1.2:7878'
+
+sonarr:
+  title: 'Sonarr Shows Download'
+  icon: mdi:filmstrip
+  url: 'http://10.3.1.2:8989'
+
+trafficcamera:
+  title: 'Verkeerscameras'
+  icon: mdi:cctv
+  url: 'https://rotterdamonderweg.nl/verkeerscameras?q=%2Fverkeerscameras#verkeerscameraModal1448'
+
+configurator:
+  title: 'Configurator'
+  icon: mdi:mdi:wrench
+  url: 'http://10.3.1.2:3218'

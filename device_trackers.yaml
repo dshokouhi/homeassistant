@@ -1,0 +1,35 @@
+#device_trackers.yaml
+- platform: nmap_tracker
+  hosts: 
+  - 10.3.1.0/24
+  - 10.3.2.0/24
+  scan_options: " --privileged -sn "
+  exclude:
+  - 10.3.1.2
+  home_interval: 5
+#‘home_interval’ sets the duration that a device is marked “Home” after it is found during a scan. 
+  interval_seconds: 60
+#‘home_interval’ sets the duration that a device is marked “Home” after it is found during a scan. Usually the 'interval_seconds will be relatively small, say 15-30 seconds and the ‘home_interval’ will be somewhat larger like 120 or 300 seconds.
+  consider_home: 180
+  new_devices_defaults:
+  track_new_devices: yes
+  hide_if_away: false
+
+#owntracks
+- platform: owntracks
+  home_interval: 600
+  interval_seconds: 300
+  consider_home: 600
+  new_devices_defaults:
+  track_new_devices: yes
+  hide_if_away: false
+
+- platform: google_maps
+  username: secondaccount@gmail.com
+  password: password
+
+- platform: bluetooth_tracker
+
+#- platform: ping
+#  host:
+#  htpc-01: 10.3.1.2

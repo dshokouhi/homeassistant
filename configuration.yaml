@@ -1,0 +1,68 @@
+#configuration.yaml
+homeassistant:
+  name: ShadowNet
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: 0
+  unit_system: metric
+  time_zone: Europe/Amsterdam
+  customize: !include customize.yaml
+  auth_providers:
+  - type: homeassistant
+
+mqtt:
+  broker: !secret mqtt_broker
+  port: !secret mqtt_port
+  username: !secret mqtt_user
+  password: !secret mqtt_password
+
+#################################################################
+#                                                               #
+#                       CONFIGURATION UI                        #
+#                                                               #
+################################################################# 
+config:
+http:
+cloud:
+discovery:
+conversation:
+history:
+frontend: 
+  themes: !include_dir_merge_named themes
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+tts:
+  - platform: google
+feedreader:
+  urls:
+    - https://www.nu.nl/rss/Algemeen
+google:
+  client_id: !secret google_calendar_Oauth_user
+  client_secret: !secret google_calendar_Oauth_password
+#input_number:
+#  vsx922_volume:
+#    name: Volume
+#    inital: 0.3
+#    min: 0
+#    max: 100
+#    step: 0.1
+
+#################################################################
+#                                                               #
+#                           INCLUDES                            #
+#                                                               #
+################################################################# 
+automation: !include automations.yaml
+binary_sensor: !include binary_sensors.yaml
+camera: !include cameras.yaml
+device_tracker: !include device_trackers.yaml
+input_boolean: !include input_booleans.yaml
+input_select: !include input_select.yaml
+light: !include lights.yaml
+media_player: !include media_players.yaml
+panel_iframe: !include panels_iframe.yaml
+remote: !include remotes.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+switch: !include switches.yaml
+zone: !include zones.yaml

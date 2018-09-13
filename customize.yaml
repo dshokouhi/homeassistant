@@ -1,0 +1,74 @@
+#customize.yaml
+#SCRIPTS
+script.harmony_hub_woonkamer_activity_films_tvshows:
+  icon: mdi:kodi
+script.harmony_hub_woonkamer_activity_netflix:
+  icon: mdi:netflix
+script.harmony_hub_woonkamer_activity_spotify:
+  icon: mdi:spotify
+script.harmony_hub_uitschakelen:
+  icon: mdi:remote
+script.harmony_hub_woonkamer_activity_youtube:
+  icon: mdi:youtube
+script.harmony_hub_woonkamer_activity_ziggo_tv:
+  icon: mdi:television
+script.harmony_hub_woonkamer_activity_cromecast:
+  icon: mdi:cast_connected
+script.htpc_01_lastmovies:
+  icon: mdi:filmstrip
+script.htpc_01_lasttvshows:
+  icon: mdi:television-box
+
+#LED 3 Speakers
+script.action_led_3_speakers_on:
+  icon: mdi:lightbulb-on-outline
+script.action_led_3_speakers_off:
+  icon: mdi:lightbulb
+script.action_led_3_speakers_fade:
+  icon: mdi:all-inclusive
+script.action_led_3_speakers_bright:
+  icon: mdi:brightness-5
+script.action_led_3_speakers_dim:
+  icon: mdi:brightness-6
+script.action_led_3_speakers_colour_blue:
+  icon: mdi:palette
+script.action_led_3_speakers_colour_green:
+  icon: mdi:palette
+script.action_led_3_speakers_colour_lightblue:
+  icon: mdi:palette
+script.action_led_3_speakers_colour_pink:
+  icon: mdi:palette
+script.action_led_3_speakers_colour_purple:
+  icon: mdi:palette
+script.action_led_3_speakers_colour_red:
+  icon: mdi:palette
+script.action_led_3_speakers_colour_yellow:
+  icon: mdi:palette
+
+#LED 3 Kitchen
+script.action_led_4_kitchen_on:
+  icon: mdi:lightbulb-on-outline
+script.action_led_4_kitchen_off:
+  icon: mdi:lightbulb
+
+#SENSORS
+sensor.weathercardanimated_iframe:
+  custom_ui_state_card: state-card-iframe
+  config:
+    height: 350
+    width: 108
+    scale: 1
+    url: 'https://embed.windy.com/embed2.html'
+sensor.chromecast:
+  templates:
+    icon_color: >-
+      if (state === 'Connected') return 'rgb(0, 171, 0)'; 
+      return 'rgb(255, 0, 0)';
+binary_sensor.google:
+  friendly_name: 'Internet PING Google'
+  icon: mdi:web
+
+#GROUPS
+group.steamonline:
+  templates:
+    entity_id: return Object.keys(entities).filter(key => entities[steam].state === 'online')

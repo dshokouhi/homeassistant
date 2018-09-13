@@ -1,0 +1,17 @@
+ - platform: template
+   switches:
+     led_4_kitchen:
+       friendly_name: Led 4 Kitchen
+       value_template: "{% if is_state('input_boolean.led_4_kitchen', 'on') %}on{% else %}off{% endif %}"
+       turn_on:
+        - service: script.turn_on
+          entity_id: script.action_led_4_kitchen_on
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.led_4_kitchen
+       turn_off:
+        - service: script.turn_off
+          entity_id: script.action_led_4_kitchen_off
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.led_4_kitchen

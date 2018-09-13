@@ -1,0 +1,187 @@
+#sensors.yaml
+#sensor 1
+- platform: mqtt
+  state_topic: !secret my_sensor
+  name: !secret my_device_battery
+  unit_of_measurement: "%"
+  value_template: '{{ value_json.batt }}'
+  device_class: battery
+
+#sensor 2
+- platform: mqtt
+  state_topic: !secret wife_sensor
+  name: !secret wife_device_battery
+  unit_of_measurement: "%"
+  value_template: '{{ value_json.batt }}'
+  device_class: battery
+
+#sensor me to home traffic
+- platform: waze_travel_time
+  origin: !secret my_device_tracker
+  destination: zone.shadownet
+  region: EU
+  name: !secret me_to_home
+
+#sensor me home to work traffic
+- platform: waze_travel_time
+  origin: !secret my_device_tracker
+  destination: !secret my_work_zone
+  region: EU
+  name: !secret me_to_work
+
+#sensor wife to home traffic
+- platform: waze_travel_time
+  origin: !secret wife_device_tracker
+  destination: zone.shadownet
+  region: EU
+  name: !secret wife_to_home
+
+#sensor wife home to work1
+- platform: waze_travel_time
+  origin: !secret wife_device_tracker
+  destination: !secret wife_work_zone1
+  region: EU
+  name: !secret wife_to_work1
+
+#sensor wife home to work2
+- platform: waze_travel_time
+  origin: !secret wife_device_tracker
+  destination: !secret wife_work_zone2
+  region: EU
+  name: !secret wife_to_work2
+ 
+#sensor weather
+- platform: yr
+  name: Weather
+  monitored_conditions:
+    - temperature
+    - symbol
+    - windSpeed
+    - cloudiness
+
+#sensor HTPC-01
+- platform: systemmonitor
+  resources:
+  - type: ipv4_address
+    arg: enp3s0
+  - type: network_in
+    arg: enp3s0
+  - type: network_out
+    arg: enp3s0
+  - type: packets_in
+    arg: enp3s0
+  - type: packets_out
+    arg: enp3s0
+  - type: disk_free
+    arg: /home
+  - type: memory_free
+  - type: processor_use
+  - type: since_last_boot
+  - type: last_boot
+  - type: disk_use_percent
+    arg: /home
+
+#sensor netwerk speed
+- platform: speedtest
+  monitored_conditions:
+  - ping
+  - download
+  - upload
+
+#sensor 7 # STEAM FRIENDS #
+- platform: steam_online
+  api_key: !secret api_key_steam
+  accounts:
+  - !secret steamID64_friend1
+  - !secret steamID64_friend2
+  - !secret steamID64_friend3
+  - !secret steamID64_friend4
+  - !secret steamID64_friend5
+  - !secret steamID64_friend6
+  - !secret steamID64_friend7
+  - !secret steamID64_friend8
+  - !secret steamID64_friend9
+  - !secret steamID64_friend10
+  - !secret steamID64_friend11
+  - !secret steamID64_friend12
+  - !secret steamID64_friend13
+  - !secret steamID64_friend14
+  - !secret steamID64_friend15
+  - !secret steamID64_friend16
+  - !secret steamID64_friend17
+  - !secret steamID64_friend18
+
+##other sensors
+- platform: template
+  sensors:
+#    google:
+#      value_template: '{% if is_state("binary_sensor.google", "on") %} {{ states.binary_sensor.google.attributes.round_trip_time_avg }} {% else %}Offline{% endif %}'
+#      unit_of_measurement: 'ms'  
+    since_last_boot_templated:
+      friendly_name: Uptime
+      value_template: "{{ states.sensor.since_last_boot.state.split('.')[0] }}"
+#    remote_harmony_hub:
+#      friendly_name: Current Activity
+#      value_template: '{{ states.remote.harmony_hub.attributes.current_activity }}'
+#      icon_template: >-
+#        {% if is_state_attr('remote.harmony_hub','current_activity','Netflix') %} mdi:netflix
+#        {% elif is_state('remote.harmony_hub','current_activity','Films & TV Shows') %} mdi:filmstrip
+#        {% else %} 'mdi:lan-disconnect'
+#        {% endif %}
+    chromecast:
+      friendly_name: Chromecast-01
+      value_template: "{% if is_state('device_tracker.chromecast01', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.chromecast01', 'home') %} mdi:cast{% else %}mdi:lan-disconnect{% endif %}"
+    defap01:
+      friendly_name: DEF-AP-01
+      value_template: "{% if is_state('device_tracker.defap01', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.defap01', 'home') %} mdi:access-point-network{% else %}mdi:lan-disconnect{% endif %}"
+    defcam01:
+      friendly_name: DEF-CAM-01
+      value_template: "{% if is_state('device_tracker.defap01', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.defap01', 'home') %} mdi:cctv{% else %}mdi:lan-disconnect{% endif %}"
+    deffw01:
+      friendly_name: DEF-FW-01
+      value_template: "{% if is_state('device_tracker.deffw01', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.deffw01', 'home') %} mdi:router-wireless{% else %}mdi:lan-disconnect{% endif %}"
+    defprn01:
+      friendly_name: DEF-PRN-01
+      value_template: "{% if is_state('device_tracker.defprn01', 'home') %}Connected{% else %}Offline{% endif %}"
+      icon_template: "{% if is_state('device_tracker.defprn01', 'home') %} mdi:printer{% else %}mdi:lan-disconnect{% endif %}"
+    harmony_hub:
+      friendly_name: HarmonyHub
+      value_template: "{% if is_state('device_tracker.harmony_hub', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.harmony_hub', 'home') %} mdi:remote{% else %}mdi:lan-disconnect{% endif %}"
+    homeassistant:
+      friendly_name: Home Assistant
+      value_template: "{% if is_state('device_tracker.homeassistant', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.homeassistant', 'home') %} mdi:tablet-android{% else %}mdi:lan-disconnect{% endif %}"
+    htpc01:
+      friendly_name: Kodi HTPC-01
+      value_template: "{% if is_state('device_tracker.htpc01', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.htpc01', 'home') %} mdi:kodi{% else %}mdi:lan-disconnect{% endif %}"
+    htpc02:
+      friendly_name: Kodi HTPC-02
+      value_template: "{% if is_state('device_tracker.htpc02', 'home') %}Connected{% else %}Offline{% endif %}"
+      icon_template: "{% if is_state('device_tracker.htpc02', 'home') %} mdi:kodi{% else %}mdi:lan-disconnect{% endif %}"
+    iiidefcontoweriii:
+      friendly_name: IIIdefcontowerIII
+      value_template: "{% if is_state('device_tracker.iiidefcontoweriii', 'home') %}Connected{% else %}Offline{% endif %}"
+      icon_template: "{% if is_state('device_tracker.iiidefcontoweriii', 'home') %} mdi:desktop-tower{% else %}mdi:lan-disconnect{% endif %}"
+    ltjp:
+      friendly_name: Laptop JP
+      value_template: "{% if is_state('device_tracker.ltjoella', 'home') %}Connected{% else %}Offline{% endif %}"
+      icon_template: "{% if is_state('device_tracker.ltjoella', 'home') %} mdi:laptop-windows{% else %}mdi:lan-disconnect{% endif %}"
+    lttvd:
+      friendly_name: Laptop TVD
+      value_template: "{% if is_state('device_tracker.ltthomas', 'home') %}Connected{% else %}Offline{% endif %}"
+      icon_template: "{% if is_state('device_tracker.ltthomas', 'home') %} mdi:laptop-windows{% else %}mdi:lan-disconnect{% endif %}"
+    toon:
+      friendly_name: Toon
+      value_template: "{% if is_state('device_tracker.toon', 'home') %}Connected{% else %}!no-reply, please check!{% endif %}"
+      icon_template: "{% if is_state('device_tracker.toon', 'home') %} mdi:flash{% else %}mdi:lan-disconnect{% endif %}"
+    vsx992:
+      friendly_name: Pioneer VSX-922
+      value_template: "{% if is_state('device_tracker.vsx922', 'home') %}Connected{% else %}Offline{% endif %}"
+      icon_template: "{% if is_state('device_tracker.vsx922', 'home') %} mdi:surround-sound-5-1{% else %}mdi:lan-disconnect{% endif %}"
+

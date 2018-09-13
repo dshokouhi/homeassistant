@@ -1,0 +1,494 @@
+#ui-lovelace.yaml
+title: ShadowNet
+# Include external resources
+resources:
+  - url: /local/wired-cards.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+  - url: /local/monster-card.js?v=1
+    type: js
+  - url: https://unpkg.com/moment@2.22.2/moment.js
+    type: js
+  - url: /local/calendar-card.js?v=2
+    type: module
+
+# Optional background for all views. Check https://developer.mozilla.org/en-US/docs/Web/CSS/background for more examples.
+background: center / cover no-repeat url("/background.png") fixed
+# Exclude entities from "Unused entities" view
+excluded_entities:
+  - weblink.router
+
+#################################################################
+#                                                               #
+#                             Home                              #
+#                                                               #
+################################################################# 
+views:
+  - title: Home
+    icon: mdi:home-assistant
+    # Optional unique id for direct access /lovelace/${id}
+    id: example
+    # Optional background (overwrites the global background).
+    background: radial-gradient(black)
+    # Each view can have a different theme applied. Theme should be defined in the frontend.
+    theme: dark-mode
+    # The cards to show on this view.
+    cards:
+      - type: entity-filter
+        entities:
+          - !secret my_device_tracker
+          - !secret wife_device_tracker
+          - sensor.lttvd
+          - sensor.ltjp
+          - device_tracker.tg
+          - device_tracker.rtp
+          - device_tracker.azi
+          - device_tracker.rs
+          - device_tracker.04a1516cac0c
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          show_state: false
+          title: People that are home
+
+      - type: map
+        default_zoom: 11
+        aspect_ratio: 100%
+        entities:
+          - entity: !secret my_device_tracker
+          - entity: !secret wife_device_tracker
+          - zone.ShadowNet
+          - !secret my_work_zone
+          - !secret wife_work_zone1
+          - !secret wife_work_zone2
+      - type: entities
+        title: Waze Travel Time
+        show_state: true
+        entities:
+          - entity: !secret my_traffic_sensor1
+          - entity: !secret my_traffic_sensor2
+          - entity: !secret wife_traffic_sensor1
+          - entity: !secret wife_traffic_sensor2
+          - entity: !secret wife_traffic_sensor3
+      - type: iframe
+        url: https://embed.windy.com/embed2.html
+        aspect_ratio: 100%
+
+      - type: glance
+        title: ''
+        column_width: calc(100% / 4)
+        entities:
+          - entity: sensor.weather_symbol
+            name: ''
+          - entity: sensor.weather_temperature
+            name: Temperature
+          - entity: sensor.weather_cloudiness
+            name: Cloudiness
+          - entity: sensor.weather_wind_speed
+            name: Wind Speed
+
+#################################################################
+#                                                               #
+#                           Calendar                            #
+#                                                               #
+################################################################# 
+  - title: Calendar
+    icon: mdi:calendar
+    cards:
+      - type: "custom:calendar-card"
+        name: !secret my_name
+        entities:
+          - !secret my_calendar_final
+
+      - type: "custom:calendar-card"
+        name: !secret wife_name
+        entities:
+          - !secret wife_calendar_final
+
+      - type: "custom:calendar-card"
+        name: Wij
+        entities:
+          - calendar.wij
+
+#################################################################
+#                                                               #
+#                             Media                             #
+#                                                               #
+################################################################# 
+  - icon: mdi:play-network
+    title: Media
+    cards:
+      - type: entities
+        title: Activities
+        show_state: true
+        entities:
+          - entity: sensor.remote_harmony_hub
+          - entity: script.harmony_hub_woonkamer_activity_films_tvshows
+          - entity: script.harmony_hub_woonkamer_activity_netflix
+          - entity: script.harmony_hub_woonkamer_activity_spotify
+          - entity: script.harmony_hub_woonkamer_activity_youtube
+          - entity: script.harmony_hub_woonkamer_activity_ziggo_tv
+          - entity: script.harmony_hub_uitschakelen
+          - entity: script.htpc_01_lastmovies
+          - entity: script.htpc_01_lasttvshows
+
+      - type: entity-filter
+        entities:
+          - media_player.htpc01_kodi
+        state_filter:
+          - 'playing'
+        card:
+          type: media-control
+          entity: media_player.htpc01_kodi
+
+      - type: entity-filter
+        entities:
+          - media_player.vsx922
+        state_filter:
+          - 'playing'
+        card:
+          type: media-control
+          entity: media_player.vsx922
+
+      - type: entities
+        title: HTPC-01
+        show_state: true
+        entities:
+          - entity: script.htpc_01_lastmovies
+          - entity: script.htpc_01_lasttvshows
+          - entity: script.htpc_01_lastmovies
+          - entity: script.htpc_01_lasttvshows
+          - entity: script.htpc_01_lastmovies
+          - entity: script.htpc_01_lasttvshows
+          - entity: script.htpc_01_lastmovies
+          - entity: script.htpc_01_lasttvshows
+
+      - type: entity-filter
+        entities:
+          - media_player.chromecast01
+        state_filter:
+          - 'playing'
+        card:
+          type: media-control
+          entity: media_player.chromecast01
+
+      - type: entity-filter
+        entities:
+          - media_player.spotify
+        state_filter:
+          - 'playing'
+        card:
+          type: media-control
+          entity: media_player.spotify
+
+      - type: entity-filter
+        entities:
+          - media_player.ziggo_mediabox_01
+        state_filter:
+          - 'playing'
+        card:
+          type: media-control
+          entity: media_player.ziggo_mediabox_01
+
+#################################################################
+#                                                               #
+#                             LIGHTS                            #
+#                                                               #
+################################################################# 
+  - title: Lights
+    icon: mdi:lightbulb-outline
+    cards:
+      - type: glance
+        title: LED 3 Speakers
+        show_state: false
+        entities:
+          - entity: script.action_led_3_speakers_on
+          - entity: script.action_led_3_speakers_off
+          - entity: script.action_led_3_speakers_dim
+          - entity: script.action_led_3_speakers_bright
+          - entity: script.action_led_3_speakers_fade
+          - entity: script.action_led_3_speakers_colour_red
+          - entity: script.action_led_3_speakers_colour_green
+          - entity: script.action_led_3_speakers_colour_blue
+          - entity: script.action_led_3_speakers_colour_lightblue
+          - entity: script.action_led_3_speakers_colour_orange
+          - entity: script.action_led_3_speakers_colour_pink
+          - entity: script.action_led_3_speakers_colour_purple
+          - entity: script.action_led_3_speakers_colour_yellow
+
+      - type: glance
+        title: LED 4 Kitchen
+        show_state: false
+        entities:
+          - entity: script.action_led_4_kitchen_on
+          - entity: script.action_led_4_kitchen_off
+
+      - type: custom:monster-card
+        card:
+          type: entities
+          title: TV LED Hyperion
+        filter:
+          include:
+          - entity_id: light.hyperion
+
+#################################################################
+#                                                               #
+#                       LOCAL AREA NETWORK                      #
+#                                                               #
+################################################################# 
+  - title: LAN
+    icon: mdi:lan
+    cards:
+      - type: entities
+        title: STATIC DEVICES
+        show_state: true
+        entities:
+          - entity: sensor.chromecast
+          - entity: sensor.defap01
+          - entity: sensor.defcam01
+          - entity: sensor.deffw01
+          - entity: sensor.defprn01
+          - entity: sensor.harmony_hub
+          - entity: sensor.homeassistant
+          - entity: sensor.iiidefcontoweriii
+          - entity: binary_sensor.google
+          - entity: sensor.htpc01
+          - entity: sensor.htpc02
+          - entity: sensor.ltjoella
+          - entity: sensor.ltthomas
+          - entity: sensor.vsx992
+          - entity: sensor.toon
+
+      - type: entities
+        title: IIIdefcontowerIII
+        show_state: true
+        entities:
+          - entity: switch.wake_iiidefcontoweriii
+
+      - type: entities
+        title: HTPC-01
+        show_state: true
+        entities:
+          - entity: sensor.ipv4_address_enp3s0
+          - entity: sensor.since_last_boot_templated
+          - entity: sensor.last_boot
+          - entity: sensor.memory_free
+          - entity: sensor.processor_use
+          - entity: sensor.disk_free_home
+          - entity: sensor.disk_use_percent_home
+
+      - type: glance
+        title: 'Speedtest.net'
+        column_width: calc(100% / 3)
+        entities:
+          - entity: sensor.speedtest_ping
+            name: Ping
+          - entity: sensor.speedtest_download
+            name: Download
+          - entity: sensor.speedtest_upload
+            name: Upload
+
+      - type: history-graph
+        hours_to_show: 24
+        title: 'Network'
+        column_width: calc(100% / 2)
+        entities:
+          - entity: sensor.network_in_enp3s0
+            name: Network In
+          - entity: sensor.network_out_enp3s0
+            name: Network Out
+
+      - type: history-graph
+        hours_to_show: 24
+        title: 'Packets'
+        column_width: calc(100% / 2)
+        entities:
+          - entity: sensor.packets_in_enp3s0
+            name: Packets In
+          - entity: sensor.packets_out_enp3s0
+            name: Packets Out
+
+#################################################################
+#                                                               #
+#                              CCTV                             #
+#                                                               #
+################################################################# 
+  - title: CCTV
+    icon: mdi:cctv
+    cards:
+      - type: picture-glance
+        title: Kitchen
+        camera_image: camera.kitchen
+        entities:
+          - camera.kitchen
+
+      - type: picture-glance
+        title: Dashboard
+        camera_image: camera.mjpeg_camera
+        entities:
+          - camera.mjpeg_camera
+
+      - type: picture-glance
+        title: Local USB
+        camera_image: camera.usb
+        entities:
+          - camera.usb
+
+#################################################################
+#                                                               #
+#                             GAMING                            #
+#                                                               #
+################################################################# 
+  - title: Gaming
+    icon: mdi:gamepad
+    cards:
+      - type: entity-filter
+        name: Steam Friends Online
+        show_state: false
+        card: 
+          type: glance
+          show_state: false
+          title: Steam Friends Online
+        entities:
+          - entity: !secret steamsensor1
+          - entity: !secret steamsensor2
+          - entity: !secret steamsensor3
+          - entity: !secret steamsensor4
+          - entity: !secret steamsensor5
+          - entity: !secret steamsensor6
+          - entity: !secret steamsensor7
+          - entity: !secret steamsensor8
+          - entity: !secret steamsensor9
+          - entity: !secret steamsensor10
+          - entity: !secret steamsensor11
+          - entity: !secret steamsensor12
+          - entity: !secret steamsensor13
+          - entity: !secret steamsensor14
+          - entity: !secret steamsensor15
+          - entity: !secret steamsensor16
+          - entity: !secret steamsensor17
+          - entity: !secret steamsensor18
+        state_filter:
+          - "online"
+
+      - type: entity-filter
+        title: Steam Friends Offline
+        card: 
+          type: glance
+          show_state: false
+          title: Steam Friends Offline
+        entities:
+          - entity: !secret steamsensor1
+          - entity: !secret steamsensor2
+          - entity: !secret steamsensor3
+          - entity: !secret steamsensor4
+          - entity: !secret steamsensor5
+          - entity: !secret steamsensor6
+          - entity: !secret steamsensor7
+          - entity: !secret steamsensor8
+          - entity: !secret steamsensor9
+          - entity: !secret steamsensor10
+          - entity: !secret steamsensor11
+          - entity: !secret steamsensor12
+          - entity: !secret steamsensor13
+          - entity: !secret steamsensor14
+          - entity: !secret steamsensor15
+          - entity: !secret steamsensor16
+          - entity: !secret steamsensor17
+          - entity: !secret steamsensor18
+        state_filter:
+          - "offline"
+
+      - type: entity-filter
+        title: Steam Friends Away
+        card: 
+          type: glance
+          show_state: false
+          title: Steam Friends Away
+        entities:
+          - entity: !secret steamsensor1
+          - entity: !secret steamsensor2
+          - entity: !secret steamsensor3
+          - entity: !secret steamsensor4
+          - entity: !secret steamsensor5
+          - entity: !secret steamsensor6
+          - entity: !secret steamsensor7
+          - entity: !secret steamsensor8
+          - entity: !secret steamsensor9
+          - entity: !secret steamsensor10
+          - entity: !secret steamsensor11
+          - entity: !secret steamsensor12
+          - entity: !secret steamsensor13
+          - entity: !secret steamsensor14
+          - entity: !secret steamsensor15
+          - entity: !secret steamsensor16
+          - entity: !secret steamsensor17
+          - entity: !secret steamsensor18
+        state_filter:
+          - "away"
+
+      - type: entity-filter
+        title: Steam Friends Snoozed
+        card: 
+          type: glance
+          show_state: false
+          title: Steam Friends Snoozed
+        entities:
+          - entity: !secret steamsensor1
+          - entity: !secret steamsensor2
+          - entity: !secret steamsensor3
+          - entity: !secret steamsensor4
+          - entity: !secret steamsensor5
+          - entity: !secret steamsensor6
+          - entity: !secret steamsensor7
+          - entity: !secret steamsensor8
+          - entity: !secret steamsensor9
+          - entity: !secret steamsensor10
+          - entity: !secret steamsensor11
+          - entity: !secret steamsensor12
+          - entity: !secret steamsensor13
+          - entity: !secret steamsensor14
+          - entity: !secret steamsensor15
+          - entity: !secret steamsensor16
+          - entity: !secret steamsensor17
+          - entity: !secret steamsensor18
+        state_filter:
+          - "away"
+
+#################################################################
+#                                                               #
+#                             GAMING                            #
+#                                                               #
+################################################################# 
+  - title: Clean
+    icon: mdi:general
+    cards:
+      - type: entity-filter
+        entities:
+          - device_tracker.chromecast01
+          - device_tracker.defap01
+          - device_tracker.defcam01
+          - device_tracker.defcam02
+          - device_tracker.deffw01
+          - device_tracker.defprn01
+          - device_tracker.harmony_hub
+          - device_tracker.homeassistant
+          - device_tracker.htpc01
+          - device_tracker.htpc02
+          - device_tracker.iiidefcontoweriii
+          - device_tracker.ltjoella
+          - device_tracker.ltthomas
+          - device_tracker.toon
+          - device_tracker.vsx922
+          - binary_sensor.google
+          - light.hyperion
+          - script.action_led_3_speakers_bright
+        state_filter:
+          - 'home'
+          - 'on'
+        card:
+          type: glance
+          show_state: true
+          title: Unused device trackers

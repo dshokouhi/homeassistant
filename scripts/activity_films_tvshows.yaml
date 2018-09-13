@@ -1,0 +1,6 @@
+alias: "Films & TV Shows"
+sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+      activity: "33745339"

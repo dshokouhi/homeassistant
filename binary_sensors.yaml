@@ -1,0 +1,4 @@
+#binary_sensors.yaml
+- platform: ping
+  host: google.nl
+  name: google

@@ -1,0 +1,4 @@
+#input_booleans.yaml
+led_4_kitchen:
+  name: Led 4 Kitchen
+  icon: mdi:fan

@@ -1,0 +1,6 @@
+alias: "Ziggo TV"
+sequence:
+  - service: remote.turn_on
+    entity_id: remote.harmony_hub
+    data:
+      activity: "24699321"

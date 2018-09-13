@@ -1,0 +1,4 @@
+#lights.yaml
+- platform: hyperion
+  host: 10.3.1.2
+  port: 19444

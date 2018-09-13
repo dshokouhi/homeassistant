@@ -1,0 +1,18 @@
+#media_players.yaml
+- platform: kodi
+  host: 10.3.1.2
+  username: !secret htpc_01_username
+  password: !secret htpc_01_password
+  name: HTPC-01 Kodi
+
+- platform: pioneer
+  host: 10.3.1.4
+  name: VSX-922
+
+- platform: spotify
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+
+- platform: ziggo_mediabox_xl
+  host: 10.3.1.107
+  name: Ziggo Mediabox 01

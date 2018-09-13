@@ -1,0 +1,34 @@
+#scripts.yaml
+#Harmony Activities
+harmony_hub_woonkamer_activity_films_tvshows: !include scripts/activity_films_tvshows.yaml
+harmony_hub_woonkamer_activity_netflix: !include scripts/activity_netflix.yaml
+harmony_hub_woonkamer_activity_spotify: !include scripts/activity_spotify.yaml
+harmony_hub_woonkamer_activity_youtube: !include scripts/activity_youtube.yaml
+harmony_hub_woonkamer_activity_ziggo_tv: !include scripts/activity_ziggo_tv.yaml
+harmony_hub_uitschakelen: !include scripts/harmony_hub_uitschakelen.yaml
+
+#Led 3 Speakers
+action_led_3_speakers_on: !include scripts/action_led_3_speakers_on.yaml
+action_led_3_speakers_off: !include scripts/action_led_3_speakers_off.yaml
+action_led_3_speakers_fade: !include scripts/action_led_3_speakers_fade.yaml
+action_led_3_speakers_bright: !include scripts/action_led_3_speakers_bright.yaml
+action_led_3_speakers_dim: !include scripts/action_led_3_speakers_dim.yaml
+action_led_3_speakers_colour_green: !include scripts/action_led_3_speakers_colour_blue.yaml
+action_led_3_speakers_colour_blue: !include scripts/action_led_3_speakers_colour_green.yaml
+action_led_3_speakers_colour_lightblue: !include scripts/action_led_3_speakers_colour_lightblue.yaml
+action_led_3_speakers_colour_pink: !include scripts/action_led_3_speakers_colour_pink.yaml
+action_led_3_speakers_colour_purple: !include scripts/action_led_3_speakers_colour_purple.yaml
+action_led_3_speakers_colour_red: !include scripts/action_led_3_speakers_colour_red.yaml
+action_led_3_speakers_colour_yellow: !include scripts/action_led_3_speakers_colour_yellow.yaml
+
+#Led 4 Kitchen
+action_led_4_kitchen_on: !include scripts/action_led_4_kitchen_on.yaml
+action_led_4_kitchen_off: !include scripts/action_led_4_kitchen_off.yaml
+
+
+#HTPC_01
+htpc_01_lasttvshows: !include scripts/htpc_01_lasttvshows.yaml
+htpc_01_lastmovies: !include scripts/htpc_01_lastmovies.yaml
+
+#HomeAssistant
+notify_update: !include scripts/notify_update.yaml

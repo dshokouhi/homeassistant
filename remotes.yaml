@@ -1,0 +1,4 @@
+#remotes.yaml
+- platform: harmony
+  name: 10.3.1.2
+  host: 19444

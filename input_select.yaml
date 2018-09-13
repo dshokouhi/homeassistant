@@ -1,0 +1,18 @@
+#input_select.yaml
+harmony:
+  name: "Harmony Hub Woonkamer"
+  options:
+  - "Films & TV Shows"
+  - "Klimaatbeheer"
+  - "Lichtbeheer"
+  - "Spotify"
+  - "YouTube"
+  - "Ziggo TV"
+  - "PowerOff"
+  icon: mdi:gesture-tap
+  initial: "PowerOff"
+
+kodi_results:
+  name: Kodi API results
+  options:
+  - Nothing to do
