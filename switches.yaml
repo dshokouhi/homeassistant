@@ -10,7 +10,7 @@
           data:
             entity_id: input_boolean.led_4_kitchen
        turn_off:
-        - service: script.turn_off
+        - service: script.turn_on
           entity_id: script.action_led_4_kitchen_off
         - service: input_boolean.turn_off
           data:
